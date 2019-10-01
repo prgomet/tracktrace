@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dark_background">#2f2f2f</color>
+    <color name="light_background">#f2ecdf</color>
+
+    <color name="dark_title">#ffc64a</color>
+    <color name="light_title">#f5b424</color>
+
+    <color name="dark_subtitle">#dbdbdb</color>
+    <color name="light_subtitle">#2c2c2c</color>
+
+    <color name="dark_description">#c1c1c1</color>
+    <color name="light_description">#464646</color>
+
+    <color name="dark_time">#6e6e6e</color>
+    <color name="light_time">#6e6e6e</color>
+
+    <color name="dark_border">#363534</color>
+    <color name="light_border">#f5f1e9</color>
+
+    <color name="icon_color">#6e6e6e</color>
+
+    <color name="fab_icon">#efe8d8</color>
+
+    <color name="bottom_bar_dark">#2f2f2f</color>
+    <color name="bottom_bar_light">#f2ecdf</color>
+
+    <color name="gray_dark_overlay">#4D6e6e6e</color>
+
+    <color name="border_color_light">#F3F0E9</color>
+    <color name="border_color_dark">#333333</color>
+
+    <color name="input_border_color_light">#dce3f0</color>
+    <color name="input_border_color_dark">#575e6a</color>
+
+    <color name="empty_color">#e2dbcd</color>
+    <color name="empty_color_dark">#464646</color>
+
+</resources>

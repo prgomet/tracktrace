@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.cometengine.tracktrace.viewmodels.TrackingItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.cometengine.tracktrace.view.DashedLineView
+            android:id="@+id/line"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="24.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_item_background"
+            app:layout_constraintBottom_toTopOf="@+id/border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/statusIcon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/status_badge_background"
+                android:scaleType="center"
+                android:src="@drawable/status_badge"
+                app:imgDrawable="@{viewModel.statusIcon}"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title"
+                style="@style/titleColor"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans_extrabold"
+                android:maxLines="1"
+                android:text="@{viewModel.title}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/options"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="SUNGLASSES" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/options"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/circle_list_item_background"
+                android:src="@drawable/ic_more"
+                android:tint="@color/icon_color"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tracking"
+                style="@style/subtitleColor"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/work_sans_bold"
+                android:text="@{viewModel.tracking}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="LE555172834CN" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/time"
+                style="@style/timeColor"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/work_sans"
+                android:gravity="end"
+                android:text="@{viewModel.time}"
+                android:textAlignment="gravity"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tracking"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="2019-09-06 16:26:30" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/description"
+                style="@style/descriptionColor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/muli"
+                android:text="@{viewModel.description}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tracking"
+                tools:text="Shipment at country of origin distribution center" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/locationIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="48dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_location"
+                android:tint="@color/icon_color"
+                app:layout_constraintBottom_toBottomOf="@+id/location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/location" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/location"
+                style="@style/timeColor"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/work_sans"
+                android:maxLines="1"
+                android:text="@{viewModel.location}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/newLabel"
+                app:layout_constraintStart_toEndOf="@+id/locationIcon"
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                app:layout_goneMarginEnd="16dp"
+                tools:text="Njemačka, Deneub Nurnberg-Feucht IFS" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/newLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/work_sans_bold"
+                android:text="@string/new_label"
+                android:textSize="12sp"
+                app:isVisible="@{viewModel.newLabelVisible}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/border"
+            style="@style/borderStyle"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

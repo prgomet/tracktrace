@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="hasItems"
+            type="Boolean" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.MainFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="-56dp"
+            android:background="?attr/actionModeBackground"
+            tools:layout_marginTop="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_collapseMode="pin"
+                app:title=" ">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/statusIcon"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/status_badge_background"
+                        android:scaleType="center"
+                        android:src="@drawable/status_badge"
+                        app:layout_constraintBottom_toBottomOf="@+id/title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/title" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/title"
+                        style="@style/titleColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/work_sans_extrabold"
+                        android:maxLines="1"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/tracking"
+                        app:layout_constraintEnd_toStartOf="@+id/close"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="SUNGLASSES" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tracking"
+                        style="@style/subtitleColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/work_sans_bold"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/close"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title"
+                        tools:text="LE555172834CN" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/close"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/circle_list_item_background"
+                        android:src="@drawable/ic_close"
+                        android:tint="@color/icon_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:isVisible="@{!safeUnbox(hasItems)}">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                style="@style/emptyIcon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_notification" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/emptyText"
+                style="@style/emptyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/work_sans_bold"
+                android:text="@string/nema_po_iljki"
+                android:textSize="16sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:scrollbars="vertical"
+            app:isVisible="@{safeUnbox(hasItems)}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:itemCount="7"
+            tools:listitem="@layout/tracking_item" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            app:layout_anchor="@+id/bottomAppBar" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:fabAlignmentMode="center"
+            app:hideOnScroll="true"
+            app:menu="@menu/home_menu" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
+
+

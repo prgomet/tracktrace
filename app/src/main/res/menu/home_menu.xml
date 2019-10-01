@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/notifications"
+        android:enabled="true"
+        android:icon="@drawable/ic_notifications_on"
+        android:title="@string/notifications"
+        app:iconTint="@color/icon_color"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/theme"
+        android:enabled="true"
+        android:icon="@drawable/ic_auto"
+        android:title="@string/auto"
+        app:iconTint="@color/icon_color"
+        app:showAsAction="ifRoom" />
+</menu>

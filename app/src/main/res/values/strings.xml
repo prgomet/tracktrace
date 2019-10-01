@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Praćenje pošiljke</string>
+
+    <string name="no_internet">Nema internetske veze</string>
+    <string name="notifications">Obavijesti</string>
+    <string name="new_label">Novo</string>
+    <string name="delete_this_tracking_number">Izbriši podatke o ovoj pošiljci</string>
+    <string name="mark_as_delivered">Označi kao dostavljeno</string>
+    <string name="mark_in_transit">Označi u tranzitu</string>
+    <string name="theme">Tema</string>
+    <string name="auto">Automatska tema</string>
+    <string name="dark">Noćna tema</string>
+    <string name="light">Dnevna tema</string>
+    <string name="notifications_on">Obavijesti uključene</string>
+    <string name="notifications_off">Obavijesti isključene</string>
+    <string name="tracking_id_hint">Primjer broja pošiljke: EA123456789HR</string>
+    <string name="done">Unesi</string>
+    <string name="title">Naslov</string>
+    <string name="add_new_tracking_number">Novo praćenje pošiljke</string>
+    <string name="tracking_number">Broj za praćenje</string>
+    <string name="description">Unesite cjelovit broj pošiljke, bez razmaka, npr.: RB267096010HR</string>
+    <string name="edit_title">Uredi naslov</string>
+    <string name="save">Spremi</string>
+    <string name="title_description">Naslov mora biti kraći od 160 znakova</string>
+    <string name="nema_po_iljki">Nema pošiljki</string>
+    <string name="copy_tracking_number">Kopiraj broj pošiljke u međuspremnik</string>
+    <string name="copy_to_clipboard">Broj za praćenje je kopiran u međuspremnik</string>
+
+</resources>
