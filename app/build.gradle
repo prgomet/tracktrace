@@ -4,15 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    signingConfigs {
-        config {
-            keyPassword '852139'
-            storeFile file('C://Users/dprgo/Documents/spa_keystore.jks')
-            storePassword '852139'
-            keyAlias 'key0'
-        }
-    }
-
     compileSdkVersion 29
 
     defaultConfig {
@@ -35,7 +26,6 @@ android {
             renderscriptDebuggable false
             pseudoLocalesEnabled false
             zipAlignEnabled true
-            signingConfig signingConfigs.config
         }
     }
     compileOptions {
