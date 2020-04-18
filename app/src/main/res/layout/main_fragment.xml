@@ -41,11 +41,11 @@
 
                     <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/statusIcon"
-                        android:layout_width="18dp"
+                        android:layout_width="32dp"
                         android:layout_height="18dp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="8dp"
                         android:background="@drawable/status_badge_background"
-                        android:scaleType="center"
+                        android:scaleType="centerInside"
                         android:src="@drawable/status_badge"
                         app:layout_constraintBottom_toBottomOf="@+id/title"
                         app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +134,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="16dp"
-            android:paddingBottom="16dp"
+            android:paddingBottom="72dp"
             android:scrollbars="vertical"
             app:isVisible="@{safeUnbox(hasItems)}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

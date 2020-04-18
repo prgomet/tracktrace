@@ -12,6 +12,10 @@ import com.cometengine.tracktrace.workers.TrackingWorker
 class SyncAdapter(context: Context) : AbstractThreadedSyncAdapter(context, true, false) {
 
     override fun onPerformSync(account: Account?, extras: Bundle?, authority: String?, provider: ContentProviderClient?, syncResult: SyncResult?) {
-        enqueueWorker<TrackingWorker>()
+        try {
+            enqueueWorker<TrackingWorker>()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

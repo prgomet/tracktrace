@@ -26,6 +26,8 @@ class TrackingAdapter(private var clickListener: ClickListener) :
         }
     }
 
+    override fun getItemViewType(position: Int): Int = 0
+
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(DataBindingUtil.inflate(inflater, R.layout.tracking_item, parent, false))
     }

@@ -2,64 +2,41 @@ package com.cometengine.tracktrace.misc
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.app.Notification
-import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import androidx.annotation.ColorInt
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.MarginLayoutParamsCompat
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Observer
-import androidx.vectordrawable.graphics.drawable.ArgbEvaluator
 import androidx.work.*
 import com.cometengine.tracktrace.AppInit
-import com.cometengine.tracktrace.BuildConfig
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 import kotlin.math.ceil
 
-const val ACCOUNT_TYPE = "${BuildConfig.APPLICATION_ID}.account"
-const val AUTHORITY = "${BuildConfig.APPLICATION_ID}.provider"
+const val ACCOUNT_TYPE = "com.cometengine.tracktrace.account"
+const val AUTHORITY = "com.cometengine.tracktrace.provider"
 
-const val TRACKING_CHANNEL = "${BuildConfig.APPLICATION_ID}.tracking"
-const val TRACKING_CHECKING = "${BuildConfig.APPLICATION_ID}.checking"
+const val TRACKING_CHANNEL = "com.cometengine.tracktrace.tracking"
+const val TRACKING_CHECKING = "com.cometengine.tracktrace.checking"
+
+val patternHP: Pattern = Pattern.compile("([a-zA-Z]{2}[0-9]{9}[a-zA-Z]{2})", Pattern.CASE_INSENSITIVE)
+val patternYanwen: Pattern = Pattern.compile("([a-zA-Z][0-9]{14})", Pattern.CASE_INSENSITIVE)
+val patternInTime: Pattern = Pattern.compile("([a-zA-Z]{2}[0-9]{12})", Pattern.CASE_INSENSITIVE)
+val patternGLS: Pattern = Pattern.compile("((000|919)[0-9]{8})", Pattern.CASE_INSENSITIVE)
+val patternOverseas: Pattern = Pattern.compile("(191001[0-9]{8})", Pattern.CASE_INSENSITIVE)
+val patternDPD: Pattern = Pattern.compile("([0-9]{14})", Pattern.CASE_INSENSITIVE)
+val patternDHL: Pattern = Pattern.compile("([0-9]{10})", Pattern.CASE_INSENSITIVE)
 
 val WORK_MANAGER = WorkManager.getInstance(AppInit.instance)
-
-fun <T> LiveData<T>.getDistinct(): LiveData<T> {
-    val distinctLiveData = MediatorLiveData<T>()
-
-    distinctLiveData.addSource(this, object : Observer<T> {
-
-        private var initialized = false
-        private var last: T? = null
-
-        override fun onChanged(t: T) {
-            if (!initialized) {
-                initialized = true
-                last = t
-                distinctLiveData.postValue(last)
-            } else if ((t == null && last != null) || t != last) {
-                last = t
-                distinctLiveData.postValue(last)
-            }
-        }
-    })
-    return distinctLiveData
-}
 
 val currentTimeStamp: Long
     get() {
@@ -82,23 +59,6 @@ fun md5(toEncrypt: String): String {
     }
 }
 
-fun getDrawableWithColor(drawableId: Int, colorId: Int): Drawable? {
-    val drawable = AppCompatResources.getDrawable(AppInit.instance, drawableId)
-    return if (drawable != null) {
-        tintDrawable(drawable, getColorFromRes(colorId))
-    } else {
-        null
-    }
-}
-
-private fun getColorFromRes(resId: Int): Int = ContextCompat.getColor(AppInit.instance, resId)
-
-private fun tintDrawable(d: Drawable, @ColorInt color: Int): Drawable {
-    val draw: Drawable = DrawableCompat.wrap(d.mutate())
-    DrawableCompat.setTint(draw, color)
-    return draw
-}
-
 fun convertToSec(date: Long?): String = try {
     val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
     dateFormat.format(Date(date!!))
@@ -112,14 +72,19 @@ fun JsonObject.optString(key: String, fallback: String): String =
 fun JsonObject.optJsonArray(key: String): JsonArray? =
     if (has(key)) get(key).asJsonArray else null
 
+fun JsonObject.optJsonObject(key: String): JsonObject? =
+    if (has(key)) get(key).asJsonObject else null
+
 inline fun <reified W : Worker> enqueueWorker() {
     val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
-    WORK_MANAGER.enqueue(
-        OneTimeWorkRequest
-            .Builder(W::class.java)
+    val workPolicy = ExistingWorkPolicy.REPLACE
+
+    WORK_MANAGER.enqueueUniqueWork(
+        W::class.java.simpleName, workPolicy,
+        OneTimeWorkRequestBuilder<W>()
             .setConstraints(constraints)
             .build()
     )
@@ -130,9 +95,11 @@ inline fun <reified W : Worker> enqueueWorker(data: Data) {
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
-    WORK_MANAGER.enqueue(
-        OneTimeWorkRequest
-            .Builder(W::class.java)
+    val workPolicy = ExistingWorkPolicy.REPLACE
+
+    WORK_MANAGER.enqueueUniqueWork(
+        W::class.java.simpleName, workPolicy,
+        OneTimeWorkRequestBuilder<W>()
             .setConstraints(constraints)
             .setInputData(data)
             .build()
@@ -157,6 +124,11 @@ fun bindIsVisible(view: View, isVisible: Boolean) {
 
 @BindingAdapter("imgDrawable")
 fun bindImageFromDrawable(view: AppCompatImageButton, imgSource: Int) {
+    view.setImageDrawable(AppCompatResources.getDrawable(view.context, imgSource))
+}
+
+@BindingAdapter("imgDrawable")
+fun bindImageFromDrawable(view: AppCompatImageView, imgSource: Int) {
     view.setImageDrawable(AppCompatResources.getDrawable(view.context, imgSource))
 }
 

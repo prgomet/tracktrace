@@ -53,7 +53,7 @@ class MainFragment : Fragment(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(activity!!)
+        viewModel = ViewModelProvider(requireActivity())
             .get(MainViewModel::class.java)
 
         clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -64,6 +64,7 @@ class MainFragment : Fragment(),
 
         binding.hasItems = true
 
+        binding.recyclerView.recycledViewPool.setMaxRecycledViews(0, 0)
         binding.recyclerView.adapter = adapter
 
         binding.bottomAppBar.setOnMenuItemClickListener(this)

@@ -33,7 +33,7 @@ class EditTitleDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onStart() {
@@ -69,7 +69,11 @@ class EditTitleDialogFragment : DialogFragment() {
         val title = binding.editTitle.text?.trim().toString()
 
         if (title != trackingItemDescription.title) {
-            UpdateTrackingItemTitle(trackingItemDescription.trackingId).execute(title)
+
+            val trackingId = trackingItemDescription.trackingId
+
+            UpdateTrackingItemTitle(trackingId).execute(title)
+
             closeWindow()
         }
     }

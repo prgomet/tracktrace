@@ -6,9 +6,7 @@ import android.os.AsyncTask
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
 import com.cometengine.tracktrace.database.AppDatabase
-import com.cometengine.tracktrace.database.TrackingItem.Companion.DELIVERED
 import com.cometengine.tracktrace.misc.TRACKING_CHANNEL
-import com.cometengine.tracktrace.misc.currentTimeStamp
 import com.cometengine.tracktrace.misc.postNotification
 import org.jetbrains.anko.collections.forEachReversedByIndex
 
@@ -20,8 +18,6 @@ class TrackingNotification(private val limit: Int) : AsyncTask<String, Int, Int>
         val trackingItem = AppDatabase.getInstance().getTrackingDao().getItem(trackingId)!!
 
         val items = db.getTrackingInfoDao().getTracking(trackingItem.id, limit)
-
-        var markAsDelivered = false
 
         if (items.isNotEmpty()) {
 
@@ -55,10 +51,6 @@ class TrackingNotification(private val limit: Int) : AsyncTask<String, Int, Int>
                     itemDescription.created, per
                 )
 
-                if (msg.text.contains("uručena", true)) {
-                    markAsDelivered = true
-                }
-
                 messageStyle.addMessage(msg)
             }
 
@@ -74,11 +66,6 @@ class TrackingNotification(private val limit: Int) : AsyncTask<String, Int, Int>
             postNotification(trackingId, mBuilder.build())
         }
 
-        if (markAsDelivered) {
-            trackingItem.status = DELIVERED
-            trackingItem.upd = currentTimeStamp
-            db.getTrackingDao().update(trackingItem)
-        }
         return 1
     }
 }

@@ -14,14 +14,11 @@ import com.cometengine.tracktrace.database.TrackingItem
 import com.cometengine.tracktrace.database.TrackingItem.Companion.TRANSIT
 import com.cometengine.tracktrace.databinding.AddNewItemDialogBinding
 import com.cometengine.tracktrace.misc.currentTimeStamp
-import java.util.regex.Pattern
 
 class AddNewItemDialogFragment : DialogFragment() {
 
     companion object {
         val TAG: String = AddNewItemDialogFragment::class.java.simpleName
-
-        val pattern: Pattern = Pattern.compile("([a-zA-Z]{2}[0-9]{9}[a-zA-Z]{2})", Pattern.CASE_INSENSITIVE)
 
         fun newInstance() = AddNewItemDialogFragment()
     }
@@ -32,7 +29,7 @@ class AddNewItemDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
     override fun onStart() {
@@ -63,7 +60,7 @@ class AddNewItemDialogFragment : DialogFragment() {
     private fun saveData() {
 
         val title = binding.editTitle.text?.trim().toString()
-        val trackingId = binding.editNumber.text?.trim().toString()
+        val trackingId = binding.editNumber.text?.trim().toString().replace("\\s".toRegex(), "")
 
         if (trackingId.isNotEmpty()) {
 

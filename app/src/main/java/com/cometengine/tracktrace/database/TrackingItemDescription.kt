@@ -15,13 +15,13 @@ class TrackingItemDescription {
     @PrimaryKey
     var id: String = ""
 
-    var title: String = ""
+    var title: String? = ""
 
     var trackingId: String = ""
 
     var location: String = ""
 
-    var description: String = ""
+    var description: String? = ""
 
     var created: Long = 0
 

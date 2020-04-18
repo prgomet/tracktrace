@@ -22,13 +22,17 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
-        }
 
-        checkAccount()
+            try {
+                checkAccount()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun checkAccount() {
-        val accountManager: AccountManager = AccountManager.get(this)
+        val accountManager = AccountManager.get(this)
         val account = Account(getString(R.string.app_name), ACCOUNT_TYPE)
         account.also {
 

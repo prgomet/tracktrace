@@ -1,14 +1,12 @@
 package com.cometengine.tracktrace.network
 
 import android.os.Handler
-import android.util.Log
 import com.google.gson.JsonObject
-import com.google.gson.JsonParser
+import com.google.gson.JsonParser.parseString
 import okhttp3.Call
 import okhttp3.Callback
 import org.jetbrains.anko.doAsync
 import java.io.IOException
-
 
 abstract class NetworkCallback(private val handler: Handler?) : Callback {
 
@@ -24,28 +22,27 @@ abstract class NetworkCallback(private val handler: Handler?) : Callback {
 
         response.body?.charStream()?.use { reader ->
 
+            val text = reader.readText()
+
+            val jsonElement = try {
+                parseString(text)
+            } catch (e: Exception) {
+                JsonObject().apply { addProperty("data", text) }
+            }
+
             try {
 
-                val jsonElement = JsonParser().parse(reader)
-
-                Log.wtf("jsonElement", jsonElement.toString())
-
-                val jsonObject = jsonElement.asJsonObject
-
-                if (jsonObject == null) {
-                    handleResponse(null)
+                val jsonObject = if (jsonElement.isJsonObject) {
+                    jsonElement.asJsonObject
                 } else {
-                    if (jsonObject.has("error")) {
-                        handleResponse(jsonObject)
-                    } else {
-                        handleResponse(jsonObject)
-                    }
+                    JsonObject().apply { add("data", jsonElement.asJsonArray) }
                 }
 
+                handleResponse(jsonObject)
+
             } catch (e: Exception) {
-                e.printStackTrace()
                 handleResponse(JsonObject().apply {
-                    addProperty("error", response.message)
+                    addProperty("error", e.localizedMessage)
                 })
             }
 

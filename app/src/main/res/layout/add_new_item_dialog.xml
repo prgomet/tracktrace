@@ -49,7 +49,7 @@
                         style="@style/inputBoxStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="42dp"
+                        android:layout_marginTop="32dp"
                         android:maxLength="64">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -103,7 +103,7 @@
                     <com.cometengine.tracktrace.view.DashedLineView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="36dp" />
+                        android:layout_marginTop="32dp" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/save"

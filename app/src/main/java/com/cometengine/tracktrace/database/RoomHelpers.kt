@@ -1,19 +1,24 @@
 package com.cometengine.tracktrace.database
 
 import androidx.work.Data
+import com.cometengine.tracktrace.AppInit
 import com.cometengine.tracktrace.misc.enqueueWorker
 import com.cometengine.tracktrace.workers.TrackingWorker
+import org.jetbrains.anko.runOnUiThread
 
 
 class InsertTrackingItem : RoomAsyncTask<TrackingItem, Int>() {
     override fun doInBackground(param: TrackingItem): Int {
+
         AppDatabase.getInstance().getTrackingDao().insert(param)
 
-        Data.Builder().apply {
-            putString("trackingId", param.id)
-            putBoolean("notifications", false)
-        }.also { data ->
-            enqueueWorker<TrackingWorker>(data.build())
+        AppInit.instance.runOnUiThread {
+            Data.Builder().apply {
+                putString("trackingId", param.id)
+                putBoolean("notifications", false)
+            }.also { data ->
+                enqueueWorker<TrackingWorker>(data.build())
+            }
         }
 
         return 1

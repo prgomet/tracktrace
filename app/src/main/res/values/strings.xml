@@ -13,12 +13,12 @@
     <string name="light">Dnevna tema</string>
     <string name="notifications_on">Obavijesti uključene</string>
     <string name="notifications_off">Obavijesti isključene</string>
-    <string name="tracking_id_hint">Primjer broja pošiljke: EA123456789HR</string>
+    <string name="tracking_id_hint">HP - AA123456789AA, \nGLS - 000 123456789, 919 123456789, \nOverseas - 191001 12345678 1, \nDHL - 1234567890, \nDPD - 12345678901234, \nIn Time - HR123456789012, \nYanwen - S00000123456789</string>
     <string name="done">Unesi</string>
     <string name="title">Naslov</string>
     <string name="add_new_tracking_number">Novo praćenje pošiljke</string>
     <string name="tracking_number">Broj za praćenje</string>
-    <string name="description">Unesite cjelovit broj pošiljke, bez razmaka, npr.: RB267096010HR</string>
+    <string name="description">Unesite cjelovit broj pošiljke, bez razmaka</string>
     <string name="edit_title">Uredi naslov</string>
     <string name="save">Spremi</string>
     <string name="title_description">Naslov mora biti kraći od 160 znakova</string>

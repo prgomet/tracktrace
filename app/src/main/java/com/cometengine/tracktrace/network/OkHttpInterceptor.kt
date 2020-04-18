@@ -18,11 +18,8 @@ class OkHttpInterceptor : Interceptor {
         val request: Request = chain.request()
 
         val requestWithUserAgent: Request = request.newBuilder().apply {
-            header("Accept", "*/*")
-            header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+            header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36")
             header("DNT", "1")
-            //header("Origin", "chrome-extension://emljkbgckigdjdfijbjfobbdaedhogdb")
-            header("Sec-Fetch-Mode", "cors")
         }.build()
 
         val response = chain.proceed(requestWithUserAgent)
@@ -30,12 +27,12 @@ class OkHttpInterceptor : Interceptor {
         if (BuildConfig.DEBUG) {
             val sent = response.sentRequestAtMillis
             val received = response.receivedResponseAtMillis
-            val reqUrl: String = java.lang.String.valueOf(request.url)
+            val reqUrl = request.url.toUrl()
             Log.wtf(
-                TAG, "reqUrl: " + reqUrl + ", sent: " + convertToSec(sent) +
-                        ", received: " + convertToSec(received) +
+                TAG, "reqUrl: " + reqUrl +
                         ", dif: " + (received - sent).toString() +
-                        ", response: " + response.message + " method: " + request.method
+                        ", response: " + response.message +
+                        ", method: " + request.method
             )
         }
 

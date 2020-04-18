@@ -110,8 +110,7 @@ class AppInit : Application(),
             density = applicationContext.resources.displayMetrics.density
             val configuration = applicationContext.resources.configuration
 
-            val manager = applicationContext
-                .getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val manager = applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
             val display = manager.defaultDisplay
             if (display != null) {
